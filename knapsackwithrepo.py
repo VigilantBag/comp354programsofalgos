@@ -16,8 +16,7 @@ def unboundedKnapsack(W, index, val, wt):
     take=-100000
     if wt[index]<=W:
         take=val[index]+unboundedKnapsack(W-wt[index],index,val,wt)
-        print("K: ", index, "\n")
-        print(take)
+        print("K(", wt[index], "-", index, ")", "+", val[index], "=", take)
     return max(take,notTake)
 
 # Driver program
