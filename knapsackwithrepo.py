@@ -1,18 +1,29 @@
-weightsofitems = [2,7,9,3]
-valueofitems = [8,2,6,30] 
+# Python3 program to find maximum
+# achievable value with a knapsack
+# of weight W and multiple instances allowed.
 
-W = 10
-i = 1
-K = [0] #K(0) = 0
+# Returns the maximum value
+# with knapsack of W capacity
+# A Naive recursive implementation of unbounded Knapsack problem
+def unboundedKnapsack(W, index, val, wt):
 
-while i <= W:
-    w = weightsofitems[i]
-    vi = valueofitems[i]
-    Ki = weightsofitems[i]-1
-    K.append(0)
-    if w <= i:
-        K[i] = max(K[Ki] + vi)
-        print(K[i])
-    i = i+1
-    print(K[0])
-    
+#Base case of recursion when only one element is there.
+    if index==0 :
+        return (W//wt[0])*val[0]
+#If the element with referred by index is doesn't occur even once in the required solution
+    notTake=0+unboundedKnapsack(W,index-1,val,wt)
+#If the element is occur atleast once in the required solution
+    take=-100000
+    if wt[index]<=W:
+        take=val[index]+unboundedKnapsack(W-wt[index],index,val,wt)
+        print("K: ", index, "\n")
+        print(take)
+    return max(take,notTake)
+
+# Driver program
+W = 100
+val = [10, 30, 20]
+wt = [5, 10, 15]
+n = len(val)
+
+print(unboundedKnapsack(W, n-1, val, wt))
